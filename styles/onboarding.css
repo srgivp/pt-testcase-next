@@ -1,0 +1,25 @@
+.form-fields-container > .form-group > label {
+    display: flex;
+    width: 15%;
+    padding-right: 3px;
+    justify-content: flex-end;
+}
+
+.form-fields-container > .form-group > input {
+    display: flex;
+    width: 2in;
+    padding-left: 3px;
+    justify-content: flex-start;
+}
+
+.form-fields-container > .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 15px 0;
+    justify-content: center;
+}
+
+.form-fields-container > .form-group > p {
+    width: 100%;
+    color: red;
+}
