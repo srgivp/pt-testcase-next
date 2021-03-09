@@ -22,7 +22,6 @@ export const authReducer = (state=AUTH_INITIAL_STATE, action) => {
             }
         }
         case AUTH_SUCCESS: {
-            console.log('got it');
             const {token} = action.payload;
             return {
                 ...state,
@@ -52,7 +51,6 @@ export const authReducer = (state=AUTH_INITIAL_STATE, action) => {
             }
         }
         case HYDRATE: {
-            console.log('hydrating', action);
             const stateHydration = JSON.parse(JSON.stringify(state));
             if (!stateHydration.token && action.payload.auth.token){
                 stateHydration.token = action.payload.auth.token;

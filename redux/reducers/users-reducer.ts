@@ -87,15 +87,13 @@ export const usersReducer = (state = INITIAL_STATE, action) => {
             const stateHydrated = action.payload.users;
             if (!stateHydrated) {
                 return state
-            }
-            if (stateHydrated.error) {
+            } else if (stateHydrated.error) {
                 return {
                     ...state,
                     loading: false,
                     error: stateHydrated.error
                 }
-            }
-            if ((state.info.length < 1 || state.pageNumber !== stateHydrated.pageNumber) && stateHydrated.info.length > 0){
+            } else if ((state.info.length < 1 || state.pageNumber !== stateHydrated.pageNumber) && stateHydrated.info.length > 0){
                 return {
                     loading: false,
                     error: null,
@@ -103,9 +101,10 @@ export const usersReducer = (state = INITIAL_STATE, action) => {
                     quantity: stateHydrated.quantity,
                     pageNumber: stateHydrated.pageNumber
                 }
+            } else {
+                return state;
             }
         }
-        break
         default: {
             return state
         }

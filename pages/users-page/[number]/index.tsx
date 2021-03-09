@@ -53,14 +53,11 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
     // @ts-ignore
     const {token} = cookies(ctx);
     const {dispatch} = ctx.store;
-    console.log('dispatchink token', token);
-    console.log('paramsnumber: ', ctx.params.number);
     // @ts-ignore
     dispatch(authSuccess({token}));
 
     try {
         const pageNumber = Number(ctx.params.number);
-        console.log('pageNumber: ', pageNumber);
         let response = await fetchUsersFromApi(pageNumber-1, token);
         const {usersPortion, total} = response;
         dispatch(fetchUsersSuccess({usersPortion, total, pageNumber}));
@@ -75,7 +72,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
 })
 
 UsersContainer.propTypes = {
-    users: PropTypes.array
+    users: PropTypes.object
 }
 
 export default UsersContainer;

@@ -20,7 +20,6 @@ export const fetchUsersRequest = (pageNumber: number, token: string) => async (d
         const {usersPortion, total} = payload;
         dispatch(fetchUsersSuccess({usersPortion, total, pageNumber}))
     } catch (error) {
-        console.log("dispatching error");
         dispatch(fetchUsersError({error}))
     }
 }
