@@ -14,9 +14,8 @@ export const fetchUsersError = actionSamplePayload(FETCH_USERS_ERROR);
 
 export const fetchUsersRequest = (pageNumber: number, token: string) => async (dispatch) => {
     dispatch({type: FETCH_USERS_REQUEST});
-    let payload;
     try {
-        payload = await fetchUsersFromApi(pageNumber, token);
+        const payload = await fetchUsersFromApi(pageNumber, token);
         const {usersPortion, total} = payload;
         dispatch(fetchUsersSuccess({usersPortion, total, pageNumber}))
     } catch (error) {

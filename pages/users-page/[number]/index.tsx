@@ -30,17 +30,10 @@ const UsersContainer = (props) => {
     const state: State = typeof window === 'undefined' ? props : useSelector((state: State) => state);
     const classes = useStyles();
 
-    const userCardsGenerator = (): JSX.Element[] => {
-        let cardsArr: JSX.Element[] = [];
-        state.users.info.forEach((item: UsersItem, index: number) => {
-            const userCard: JSX.Element = (
-                <UserCard orderNumber={index} key={item.id.toString()} name={item.firstName} lastname={item.lastName}
-                          id={item.id.toString()}
-                          img={item.picture}/>);
-            cardsArr.push(userCard);
-        })
-        return cardsArr;
-    }
+    const userCardsGenerator = (): JSX.Element[] => state.users.info.map((item: UsersItem, index: number) => (
+      <UserCard orderNumber={index} key={item.id.toString()} name={item.firstName} lastname={item.lastName}
+                id={item.id.toString()}
+                img={item.picture}/>))
 
     return <>{state.users.loading ? <Processing/> :
         <Container className={`flex-container, ${classes.root} users-container`}>

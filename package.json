@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev -p 3002",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "type-check": "tsc --pretty --noEmit --skipLibCheck",
+    "format": "prettier --write **/*.{js,ts,tsx}",
+    "lint": "eslint . --ext ts --ext tsx --ext js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
@@ -31,7 +34,34 @@
     "redux-thunk": "^2.3.0",
     "typescript": "^4.2.2"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run type-check"
+    }
+  },
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "npm run lint",
+      "npm run format"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "next/babel"
+    ]
+  },
   "devDependencies": {
-    "@types/node": "^14.14.31"
+    "@types/node": "^14.14.31",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.1.2",
+    "husky": "^4.3.0"
   }
 }
