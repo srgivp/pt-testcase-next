@@ -54,7 +54,7 @@ export const usersReducer = (state = INITIAL_STATE, action) => {
             }
         }
         case FETCH_DETAILS_SUCCESS: {
-            let stateBeforeDetails = JSON.parse(JSON.stringify(state));
+            const stateBeforeDetails = JSON.parse(JSON.stringify(state));
             const {details} = action.payload;
             const id  = details.id;
             for (let i = 0; i < stateBeforeDetails.info.length; i++) {
@@ -66,7 +66,7 @@ export const usersReducer = (state = INITIAL_STATE, action) => {
             return stateBeforeDetails;
         }
         case EDIT_USER: {
-            let stateBeforeEditing = JSON.parse(JSON.stringify(state));
+            const stateBeforeEditing = JSON.parse(JSON.stringify(state));
             const {details} = action.payload;
             const id  = details.id;
             for (let i = 0; i < stateBeforeEditing.info.length; i++) {
@@ -79,11 +79,22 @@ export const usersReducer = (state = INITIAL_STATE, action) => {
             return stateBeforeEditing;
         }
         case DELETE_USER: {
-            let stateBeforeDelete = JSON.parse(JSON.stringify(state));
+            const stateBeforeDelete = JSON.parse(JSON.stringify(state));
             stateBeforeDelete.info = stateBeforeDelete.info.filter(item => item.id !== action.payload.id);
             return stateBeforeDelete;
         }
         case HYDRATE: {
+            if (action.payload.user.info?.id){
+                const stateBeforeDetails = JSON.parse(JSON.stringify(state));
+                const id  = action.payload.user.info?.id;
+                for (let i = 0; i < stateBeforeDetails.info.length; i++) {
+                    if (stateBeforeDetails.info[i].id === id && !stateBeforeDetails.info[i].details) {
+                        stateBeforeDetails.info[i].details = action.payload.user.info;
+                        break;
+                    }
+                }
+                return stateBeforeDetails;
+            }
             const stateHydrated = action.payload.users;
             if (!stateHydrated) {
                 return state

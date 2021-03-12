@@ -7,6 +7,7 @@ import {State} from '../redux/reducers/root-reducer';
 import Processing from "./Processing";
 import {useRouter} from 'next/router';
 import Link from 'next/link';
+import ROUTES from '../routes/routes-constants';
 
 export type OnboardingFormData = {
     login: string,
@@ -22,7 +23,7 @@ const Onboarding = (action: any, buttonName: string) => {
     password.current = watch('password', '');
     useEffect(() => {
 if (state.auth.token) {
-    router.push('./users-page/1');
+    router.push('./users-page/[number]', ROUTES.dynamic.usersPage(1));
 }
     })
 

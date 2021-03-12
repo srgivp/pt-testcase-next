@@ -1,3 +1,5 @@
+import {UserState} from '../support/axios';
+
 export type UsersItem = {
     id: string,
     picture: string,
@@ -5,5 +7,5 @@ export type UsersItem = {
     email?: string,
     title: string,
     firstName: string,
-    // details?: UserState
+    details?: UserState
 }

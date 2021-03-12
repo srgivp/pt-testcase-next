@@ -21,14 +21,14 @@ a {
     justify-content: flex-end;
 }
 
-.card {
-    max-width: 345px;
-    width: 15%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 20px;
-}
+/*.card {*/
+/*    max-width: 345px;*/
+/*    width: 15%;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    flex-wrap: wrap;*/
+/*    margin: 20px;*/
+/*}*/
 
 .MuiCardActions-root {
     width: 100%;
@@ -248,3 +248,9 @@ width: fit-content;
         transform:rotate(360deg);
     }
 }
+
+/*@media screen and (max-width: 768px) {*/
+/*    .card {*/
+/*        width: 80% !important;*/
+/*    }*/
+/*}*/

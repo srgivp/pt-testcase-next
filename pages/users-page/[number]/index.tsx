@@ -3,19 +3,18 @@ import UserCard from "../../../components/User-card";
 import PropTypes from 'prop-types';
 import {Container} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {UsersItem} from "../../../components/types-components";
-// import {clearUsersInfo, fetchUsersRequest} from "../actions/fetch-users-actions";
 import {State} from "../../../redux/reducers/root-reducer";
 import {wrapper} from "../../../redux/store";
-import cookies from "next-cookies";
 import {authSuccess} from "../../../redux/actions/auth-actions";
 import {fetchUsersFromApi} from "../../../support/axios";
 import {fetchUsersError, fetchUsersSuccess} from "../../../redux/actions/fetch-users-actions";
 import Processing from "../../../components/Processing";
+import nookies from 'nookies';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: 'flex',
         justifyContent: 'space-evenly',
@@ -43,15 +42,18 @@ const UsersContainer = (props) => {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const {token} = cookies(ctx);
+    const allCookies = nookies.get(ctx);
+    const shallowCookies = JSON.parse(JSON.stringify(allCookies));
+    const {token} = shallowCookies;
     const {dispatch} = ctx.store;
     // @ts-ignore
     dispatch(authSuccess({token}));
 
     try {
         const pageNumber = Number(ctx.params.number);
-        let response = await fetchUsersFromApi(pageNumber-1, token);
+        const response = await fetchUsersFromApi(pageNumber-1, token);
         const {usersPortion, total} = response;
         dispatch(fetchUsersSuccess({usersPortion, total, pageNumber}));
     } catch (error) {

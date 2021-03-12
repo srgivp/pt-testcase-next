@@ -8,6 +8,7 @@ import { mdiAccountEditOutline, mdiDeleteForeverOutline } from '@mdi/js';
 import {IconButton} from "@material-ui/core";
 import Icon from '@mdi/react';
 import PropTypes from "prop-types";
+import {useUserCard} from './support/on-click-card';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,7 +17,14 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         flexWrap: 'wrap',
-        margin: '20px'
+        margin: '20px',
+        [theme.breakpoints.between('sm', 'md')]: {
+            width: '30%',
+            margin: '10px'
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: '80%'
+        }
     },
     large: {
         width: theme.spacing(10),
@@ -37,7 +45,7 @@ header: {
 export type UserCardProps = {
     name: string,
     lastname: string,
-    id: any,
+    id: string,
     key?: string,
     img: string,
     orderNumber: number
@@ -45,12 +53,15 @@ export type UserCardProps = {
 
 
 const UserCard = (props: UserCardProps)=>{
+    const { onClickCardEdit, onClickCardDelete } = useUserCard();
     const classes = useStyles();
     const userName=`${props.name} ${props.lastname}`;
         return <Card id ={props.id} className={`${classes.root} card`}>
             <CardActions disableSpacing className={classes.actions}>
                 <IconButton aria-label='edit card'
-                >
+                            onClick={()=>{
+                                onClickCardEdit(props.id)
+                            }}>
                     <Icon path={mdiAccountEditOutline}
                           title="edit card"
                           size={1}
@@ -61,6 +72,9 @@ const UserCard = (props: UserCardProps)=>{
                     />
                 </IconButton>
                 <IconButton aria-label='delete card'
+                            onClick={() => {
+                                onClickCardDelete(props.id)
+                            }}
                 >
                     <Icon path={mdiDeleteForeverOutline}
                           title="delete card"

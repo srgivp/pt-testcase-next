@@ -1,10 +1,10 @@
 import {
     CLEAR_USERS_INFO,
-    DELETE_USER,
+    DELETE_USER, EDIT_USER,
     FETCH_USERS_ERROR,
     FETCH_USERS_REQUEST,
-    FETCH_USERS_SUCCESS
-} from "./action-types";
+    FETCH_USERS_SUCCESS,
+} from './action-types';
 import {signOutAction} from "./auth-actions";
 import {fetchUsersFromApi} from "../../support/axios";
 import {actionSamplePayload} from "./action-samples";
@@ -19,7 +19,8 @@ export const fetchUsersRequest = (pageNumber: number, token: string) => async (d
         const {usersPortion, total} = payload;
         dispatch(fetchUsersSuccess({usersPortion, total, pageNumber}))
     } catch (error) {
-        dispatch(fetchUsersError({error}))
+        const errorJson = {message: error.toJSON().message};
+        dispatch(fetchUsersError({error: errorJson}));
     }
 }
 
@@ -33,11 +34,21 @@ export const clearUsersInfo = (pageNumber: number, quantity: number) => {
     }
 }
 
-export const deleteUserAction = (id) => {
+
+export const deleteUserAction = actionSamplePayload(DELETE_USER);
+
+export const editUserAction = (details) => {
+    let age = Date.now() - details.dateOfBirth.getTime();
+    age = age / 31556952000; //ms in year
+    age = Math.floor(age);
+    details.age = age;
     return {
-        type: DELETE_USER,
-        payload: {id}
+        type: EDIT_USER,
+        payload: {
+            details
+        }
     }
 }
+
 
 export type FetchUsersActions = ReturnType<typeof fetchUsersError | typeof fetchUsersRequest | typeof fetchUsersSuccess | typeof signOutAction | typeof clearUsersInfo | typeof deleteUserAction>;

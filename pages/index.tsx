@@ -1,17 +1,19 @@
-
-import cookies from "next-cookies";
 import {wrapper} from "../redux/store";
 import ROUTES from "../routes/routes-constants";
 import atob from 'atob';
+import nookies from 'nookies';
 
 
 export const getServerSideProps = wrapper.getServerSideProps(
     (ctx) => {
-        const {token} = cookies(ctx);
+      const allCookies = nookies.get(ctx);
+      const shallowCookies = JSON.parse(JSON.stringify(allCookies));
+      const {token} = shallowCookies;
+
         function parseJwt (token) {
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
             }).join(''))
 
