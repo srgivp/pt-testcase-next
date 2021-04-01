@@ -30,7 +30,7 @@ const Onboarding = (action: any, buttonName: string) => {
 
   return (
     <>
-      {state.auth.loading ? (
+      {state.auth.loading || state.users.loading ? (
         <Processing />
       ) : (
         <div id="onboarding-container" className="form-container">

@@ -12,6 +12,7 @@ import { fetchUsersFromApi } from '../../../support/axios';
 import { fetchUsersError, fetchUsersSuccess } from '../../../redux/actions/fetch-users-actions';
 import Processing from '../../../components/Processing';
 import nookies from 'nookies';
+import { FETCH_USERS_REQUEST } from '../../../redux/actions/action-types';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -56,9 +57,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async ctx => {
   const shallowCookies = JSON.parse(JSON.stringify(allCookies));
   const { token, apiKey } = shallowCookies;
   const { dispatch } = ctx.store;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   dispatch(authSuccess({ token, apiKey }));
-
+  dispatch({ type: FETCH_USERS_REQUEST });
   try {
     const pageNumber = Number(ctx.params.number);
     const response = await fetchUsersFromApi(pageNumber - 1, token, apiKey);

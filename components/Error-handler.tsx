@@ -23,6 +23,7 @@ const ErrorHandler = () => {
     if (stateError) {
       addToast(stateError.message, {
         appearance: 'error',
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         onDismiss: id => cleanError(),
       });
     }
@@ -31,10 +32,12 @@ const ErrorHandler = () => {
   return <div id="error-handler"> </div>;
 };
 
-export default () => {
+const toastedErrorHandler = () => {
   return (
     <ToastProvider>
       <ErrorHandler />
     </ToastProvider>
   );
 };
+
+export default toastedErrorHandler;
