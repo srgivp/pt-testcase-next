@@ -14,6 +14,7 @@ import {
   fetchDetailsError,
   fetchDetailsSuccess,
 } from '../../../../redux/actions/fetch-details-actions';
+import {FETCH_DETAILS_REQUEST} from '../../../../redux/actions/action-types';
 import { onChangeDateOfBirth, onChangeAge } from '../../../../components/support/user-info-utils';
 import { wrapper } from '../../../../redux/store';
 import { fetchDetailsFromApi } from '../../../../support/axios';
@@ -199,6 +200,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ctx => {
   const id: string = typeof ctx.params.id === 'string' && ctx.params.id;
   const dispatch = ctx.store.dispatch;
   if (state.users.info.length < 1) {
+    dispatch({ type: FETCH_DETAILS_REQUEST });
     try {
       const details = await fetchDetailsFromApi(id, token, apiKey);
       dispatch(fetchDetailsSuccess(details));

@@ -1,17 +1,7 @@
-import { FETCH_DETAILS_ERROR, FETCH_DETAILS_REQUEST, FETCH_DETAILS_SUCCESS, CLEAN_DETAILS_INFO } from './action-types';
-import { fetchDetailsFromApi, UserState } from '../../support/axios';
+import { FETCH_DETAILS_ERROR, FETCH_DETAILS_SUCCESS, CLEAN_DETAILS_INFO } from './action-types';
+import { UserState } from '../../support/axios';
 import { displayExistingUserAction } from './dispaly-existing-user-action';
 import { actionSamplePayload } from './action-samples';
-
-export const fetchDetailsRequest = (id: string, token: string) => async dispatch => {
-  dispatch({ type: FETCH_DETAILS_REQUEST });
-  try {
-    const response = await fetchDetailsFromApi(id, token);
-    dispatch(fetchDetailsSuccess(response));
-  } catch (error) {
-    dispatch(fetchDetailsError(error));
-  }
-};
 
 export const fetchDetailsSuccess = (details: UserState) => {
   const parseISOString = s => {
@@ -42,7 +32,6 @@ export const cleanDetailsInfo = () => {
 
 export type FetchDetailsActions = ReturnType<
   | typeof fetchDetailsError
-  | typeof fetchDetailsRequest
   | typeof fetchDetailsSuccess
   | typeof cleanDetailsInfo
   | typeof displayExistingUserAction
