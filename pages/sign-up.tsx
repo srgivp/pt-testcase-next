@@ -1,2 +1,2 @@
-import {SignUpComponent} from "../components/Onboarding";
+import { SignUpComponent } from '../components/Onboarding';
 export default SignUpComponent;

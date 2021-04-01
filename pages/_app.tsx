@@ -11,8 +11,10 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
   const theme = createMuiTheme();
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
-      <Layout><Component {...pageProps} /></Layout>
+      <CssBaseline />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   );
 };

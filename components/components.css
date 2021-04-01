@@ -170,6 +170,9 @@ width: fit-content;
 .form-fields-container > .form-group > p {
     width: 100%;
     color: red;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .form-fields-container {

@@ -1,3 +1,3 @@
-import {SignInComponent} from "../components/Onboarding";
+import { SignInComponent } from '../components/Onboarding';
 
 export default SignInComponent;

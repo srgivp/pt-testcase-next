@@ -16,3 +16,7 @@ export const FETCH_DETAILS_ERROR = '@details/FETCH_DETAILS_ERROR' as const;
 export const CLEAN_DETAILS_INFO = '@details/CLEAN_DETAILS_INFO' as const;
 export const DISPLAY_EXISTING_USER = '@details/DISPLAY_EXISTING_USER' as const;
 
+export type Action<P> = {
+  type: string;
+  payload?: P;
+};

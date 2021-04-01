@@ -1,23 +1,23 @@
 export const actionSampleWoPayload = (type: string) => {
-    return () => {
-return {type}
-    }
-}
+  return () => {
+    return { type };
+  };
+};
 
 export const actionSamplePayload = (type: string) => {
-    return (payload) => {
-        return {
-            type,
-            payload
-        }
-    }
-}
+  return (payload: unknown) => {
+    return {
+      type,
+      payload,
+    };
+  };
+};
 
 export const actionAsyncSamplePayload = (type: string) => {
-    return (payload) => async (dispatch) => {
-        dispatch({
-            type,
-            payload
-        })
-    }
-}
+  return (payload: unknown) => async dispatch => {
+    dispatch({
+      type,
+      payload,
+    });
+  };
+};
