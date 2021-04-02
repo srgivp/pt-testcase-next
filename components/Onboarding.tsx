@@ -94,6 +94,7 @@ const Onboarding = (action: any, buttonName: string) => {
                   className="textInput"
                   name="apiKey"
                   title="Add your key to https://dummyapi.io API. If you don't have one, you can get it with free account to the API"
+                  ref={register()}
                   // ref={register({
                   //   required: 'You need add the key to https://dummyapi.io API',
                   // })}
